@@ -37,9 +37,6 @@ def ohjelma():
         while pituus <= numero:
             vertailu = 1
             break
-            
-                
-
 
     # Käyttäjän inputti ja laskuohjelman valinta
     def kysely():
