@@ -6,6 +6,7 @@ import sys
 # *30.1 ohjelmaan lisätty funktioita.
 # *31.1 lisätty ohjelman toisto ja parannettu toimivuutta
 # *4.2 estetty muiden kun numeroiden syöttäminen ja superlaskurin implementointi aloitettu
+# *16.2 lisätty git implementaatio
 
 def ohjelma():
     # Käyttäjän valinta
