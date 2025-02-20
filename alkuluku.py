@@ -1,5 +1,6 @@
 import sys
 
+
 # Ohjelma, joka laskee alkulukuja
 #! Lisää ohjelmaan funktio, jolla voi laskea käyttäjän syöttämään numeroon saakka alkuluvut. 0-x
 # *27.1 lisätty funktion parametrit
