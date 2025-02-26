@@ -1,0 +1,20 @@
+https://youtu.be/mJ-qvsxPHpY?si=bnmmEVPcPih_Q3hG
+
+git init = initialize project to use git
+git add . = add all changes to be saved
+git add *filename* = add single file to be saved
+git commit -m "message" = save changes with message
+git push origin main = push changes to github master
+git push origin new-branch = push changes to github new-branch
+git pull origin main = pull changes from github master
+it checkout -b new-branch = create a new branch
+git status = check status of changes
+git log = see all previous changes
+git checkout *commit hash* =travel back to old comment
+
+*lisäyksiä*
+git fetch origin = updates to see what has changed on GitHub
+git log origin = see log
+git diff origin = shows differences between local master and origin/master
+git merge origin = merges currenct branch (master) with origin/master
+git pull origin = combination of fetch and merge
