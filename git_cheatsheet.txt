@@ -1,5 +1,6 @@
 https://youtu.be/mJ-qvsxPHpY?si=bnmmEVPcPih_Q3hG
 
+touch = create file
 git init = initialize project to use git
 git add . = add all changes to be saved
 git add *filename* = add single file to be saved
