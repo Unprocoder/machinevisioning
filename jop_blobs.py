@@ -16,6 +16,8 @@ cv2.createTrackbar("high_hue_green", "Tracking_green", 255, 255, nothing)
 cv2.createTrackbar("high_satu_green", "Tracking_green", 255, 255, nothing)
 cv2.createTrackbar("high_value_green", "Tracking_green", 255, 255, nothing)
 
+cv2.namedWindow("Tracking_red")
+
 while True:
     frame = cv2.imread('blobs.png')
 
@@ -29,14 +31,21 @@ while True:
     u_s = cv2.getTrackbarPos("high_satu_green", "Tracking_green")
     u_v = cv2.getTrackbarPos("high_value_green", "Tracking_green")
 
-    l_b = np.array([l_h, l_s, l_v])
-    u_b = np.array([u_h, u_s, u_v])
+    # vihreät säädöt
+    l_g = np.array([l_h, l_s, l_v])
+    u_g = np.array([u_h, u_s, u_v])
 
-    mask = cv2.inRange(hsv, l_b, u_b)
-    res = cv2.bitwise_and(frame, frame, mask=mask)
+    # punaiset säädöt
+    l_r = np.array([0, 24, 186])
+    u_r = np.array([26, 215, 248])
+
+    mask_green = cv2.inRange(hsv, l_g, u_g)
+    mask_red = cv2.inRange(hsv, l_r, u_r)
+    res = cv2.bitwise_and(frame, frame, mask=mask_green)
 
     cv2.imshow("Frame", frame)
-    cv2.imshow("Mask", mask)
+    cv2.imshow("Mask green", mask_green)
+    cv2.imshow("Mask red", mask_red)
     cv2.imshow("Result", res)
 
     key = cv2.waitKey(1)
