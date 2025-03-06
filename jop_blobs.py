@@ -41,7 +41,8 @@ while True:
 
     mask_green = cv2.inRange(hsv, l_g, u_g)
     mask_red = cv2.inRange(hsv, l_r, u_r)
-    res = cv2.bitwise_and(frame, frame, mask=mask_green)
+    mask = mask_green | mask_red # joko vihreä tai punainen maski → maskien "yhdistäminen"
+    res = cv2.bitwise_and(frame, frame, mask=mask)
 
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask green", mask_green)
