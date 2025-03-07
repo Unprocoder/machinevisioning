@@ -3,7 +3,7 @@ import cv2
 #* https://www.youtube.com/watch?v=V1aMDD5583k&list=PLS1QulWo1RIa7D1O6skqDQ-JZ1GGHKK-K&index=6
 
 
-#img = cv2.imread('lena.jpg', 1)
+img = cv2.imread('lena.jpg', 1)
 
 img = np.zeros([512,512,3], np.uint8)
 
