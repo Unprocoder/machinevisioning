@@ -44,11 +44,18 @@ while True:
     mask = mask_green | mask_red # joko vihreä tai punainen maski → maskien "yhdistäminen" 
     res = cv2.bitwise_and(frame, frame, mask=mask)
 
+
+    # ylärektankeli
+    frame = cv2.rectangle(frame, (0,0), (255,100), (0, 0, 0), -1)
+    # alarektankeli
+    frame = cv2.rectangle(frame, (0, 120), (255, 255), (0, 0, 0), -1) 
+
     # kuvien näyttäminen
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask green", mask_green)
     cv2.imshow("Mask red", mask_red)
     cv2.imshow("Result", res)
+
 
     # escape
     key = cv2.waitKey(1)
