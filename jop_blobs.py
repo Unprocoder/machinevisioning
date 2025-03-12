@@ -1,5 +1,8 @@
 # joy of programming machine vision
+#* -- Trackbaarit --
 #* https://www.youtube.com/watch?v=3D7O_kZi8-o&list=PLS1QulWo1RIa7D1O6skqDQ-JZ1GGHKK-K&index=18
+#* -- Ympyrät --
+#* https://www.youtube.com/watch?v=dp1r9oT_h9k
 
 import cv2
 import numpy as np
@@ -8,13 +11,14 @@ def nothing(x):
     pass
 
 # Vihreän värin säätöpalikat
-cv2.namedWindow("Tracking_green")
-cv2.createTrackbar("low_hue_green", "Tracking_green", 0, 255, nothing)
-cv2.createTrackbar("low_satu_green", "Tracking_green", 0, 255, nothing)
-cv2.createTrackbar("low_value_green", "Tracking_green", 0, 255, nothing)
-cv2.createTrackbar("high_hue_green", "Tracking_green", 255, 255, nothing)
-cv2.createTrackbar("high_satu_green", "Tracking_green", 255, 255, nothing)
-cv2.createTrackbar("high_value_green", "Tracking_green", 255, 255, nothing)
+#! käytetty ohjelman säätöön
+# cv2.namedWindow("Tracking_green")
+# cv2.createTrackbar("low_hue_green", "Tracking_green", 0, 255, nothing)
+# cv2.createTrackbar("low_satu_green", "Tracking_green", 0, 255, nothing)
+# cv2.createTrackbar("low_value_green", "Tracking_green", 0, 255, nothing)
+# cv2.createTrackbar("high_hue_green", "Tracking_green", 255, 255, nothing)
+# cv2.createTrackbar("high_satu_green", "Tracking_green", 255, 255, nothing)
+# cv2.createTrackbar("high_value_green", "Tracking_green", 255, 255, nothing)
 
 while True:
     frame = cv2.imread('blobs.png')
@@ -23,12 +27,12 @@ while True:
 
     # Trackbaarit
     #! käytetty ohjelman säätöön
-    l_h = cv2.getTrackbarPos("low_hue_green", "Tracking_green")
-    l_s = cv2.getTrackbarPos("low_satu_green", "Tracking_green")
-    l_v = cv2.getTrackbarPos("low_value_green", "Tracking_green")
-    u_h = cv2.getTrackbarPos("high_hue_green", "Tracking_green")
-    u_s = cv2.getTrackbarPos("high_satu_green", "Tracking_green")
-    u_v = cv2.getTrackbarPos("high_value_green", "Tracking_green")
+    # l_h = cv2.getTrackbarPos("low_hue_green", "Tracking_green")
+    # l_s = cv2.getTrackbarPos("low_satu_green", "Tracking_green")
+    # l_v = cv2.getTrackbarPos("low_value_green", "Tracking_green")
+    # u_h = cv2.getTrackbarPos("high_hue_green", "Tracking_green")
+    # u_s = cv2.getTrackbarPos("high_satu_green", "Tracking_green")
+    # u_v = cv2.getTrackbarPos("high_value_green", "Tracking_green")
 
     # vihreät säädöt
     l_g = np.array([0, 0, 199])
@@ -46,15 +50,34 @@ while True:
 
 
     # ylärektankeli
-    frame = cv2.rectangle(frame, (0,0), (255,100), (0, 0, 0), -1)
+    #frame = cv2.rectangle(frame, (0,0), (255,100), (0, 0, 0), -1)
     # alarektankeli
-    frame = cv2.rectangle(frame, (0, 120), (255, 255), (0, 0, 0), -1) 
+    #frame = cv2.rectangle(frame, (0, 120), (255, 255), (0, 0, 0), -1) 
 
     # kuvien näyttäminen
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask green", mask_green)
     cv2.imshow("Mask red", mask_red)
     cv2.imshow("Result", res)
+
+    #ympyrän havaitseminen
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray_blurred = cv2.blur(gray, (4, 4))
+
+    detected_circles = cv2.HoughCircles(gray_blurred, cv2.HOUGH_GRADIENT, 1, 20, param1 = 60, param2 = 25, minRadius = 1, maxRadius = 40)
+
+    if detected_circles is not None:
+        detected_circles = np.uint16(np.around(detected_circles))
+        
+        for pt in detected_circles[0, :]:
+            a, b, r = pt[0], pt[1], pt[2]
+
+            cv2.circle(frame, (a, b), r, (255, 255, 0), 2)
+
+            cv2.circle(frame, (a, b), 1, (255, 255, 0), 2)
+
+    cv2.imshow("Harmaa", gray_blurred)
+    cv2.imshow("Detected Circle", frame)
 
 
     # escape
