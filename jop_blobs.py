@@ -2,10 +2,11 @@
 #* -- Trackbaarit --
 #* https://www.youtube.com/watch?v=3D7O_kZi8-o&list=PLS1QulWo1RIa7D1O6skqDQ-JZ1GGHKK-K&index=18
 #* -- Ympyrät --
-#* https://www.youtube.com/watch?v=dp1r9oT_h9k
+#* https://www.geeksforgeeks.org/circle-detection-using-opencv-python/
 
 import cv2
 import numpy as np
+import time
 
 def nothing(x):
     pass
@@ -60,12 +61,29 @@ while True:
     cv2.imshow("Mask red", mask_red)
     cv2.imshow("Result", res)
 
+    # --- Koordinaattien nuuhkinta ---
+
+    # suurimpien arvojen määrittäminen yhdeksi vaakasuoraksi viivaksi
+    middle_green = mask_green.max(axis = 0)
+    middle_red = mask_red.max(axis = 0)
+
+    midline_green = cv2.findNonZero(middle_green)
+    midline_red = cv2. findNonZero(middle_red)
+
+    def printteri():
+        print(f"Vihreät arvot {midline_green} Punaiset arvot {midline_red}")
+        time.sleep(30)
+    printteri()
+
+    # --------------------------------
+
     #ympyrän havaitseminen
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray_blurred = cv2.blur(gray, (4, 4))
 
     detected_circles = cv2.HoughCircles(gray_blurred, cv2.HOUGH_GRADIENT, 1, 20, param1 = 60, param2 = 25, minRadius = 1, maxRadius = 40)
 
+    # sirkkeleiden tunnistaminen
     if detected_circles is not None:
         detected_circles = np.uint16(np.around(detected_circles))
         
@@ -78,7 +96,6 @@ while True:
 
     cv2.imshow("Harmaa", gray_blurred)
     cv2.imshow("Detected Circle", frame)
-
 
     # escape
     key = cv2.waitKey(1)
